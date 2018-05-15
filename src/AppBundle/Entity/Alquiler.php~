@@ -1,0 +1,64 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Alquiler
+ *
+ * @ORM\Table(name="alquiler", indexes={@ORM\Index(name="fk_Alquiler_Apartamento1_idx", columns={"Apartamento_id"}), @ORM\Index(name="fk_alquiler_user1_idx", columns={"user_id"})})
+ * @ORM\Entity
+ */
+class Alquiler
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Fecha_Ini", type="string", length=10, nullable=true)
+     */
+    private $fechaIni;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Fecha_Fin", type="string", length=10, nullable=true)
+     */
+    private $fechaFin;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="direccion", type="string", length=255, nullable=true)
+     */
+    private $direccion;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Apartamento_id", type="integer", nullable=false)
+     */
+    private $apartamentoId;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $user;
+
+
+}
+

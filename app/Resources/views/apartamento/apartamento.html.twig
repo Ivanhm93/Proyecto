@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% block stylesheets %}
+                
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="{{ asset('css/estilo.css') }}" />
+        
+    {% endblock %}
+
+</head>
+
+<body>
+
+	{% block body %}
+
+   		<!-- Menú Navbar -->
+           <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #00aced;">
+				<div class="container">
+					<img id="logo" src="../../imagenes/logo.png" alt="">
+					<button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#divCollapse">
+					&#9776;
+					</button>
+					<div class="collapse navbar-collapse" id="divCollapse">
+						<ul class="nav navbar-nav">
+                            <li class="nav-item"><a href="{{ url('homepage')}}" id="inicio" class="nav-link font-weight-bold">Inicio</a></li>
+							<li class="nav-item"><a href="#" id="ayuda" class="nav-link font-weight-bold">Ayuda</a></li>
+						</ul>
+						<ul class="nav navbar-nav ml-auto">
+								<li class="nav-item"><a class="nav-link font-weight-bold" href="{{url("logout")}}"> Cerrar Sesión</a></li>
+								<button type="button" data-toggle="dropdown" style="background-color:#00aced;" class="btn dropdown-toggle nav-link font-weight-bold">Perfil</button>
+								<ul class="dropdown-menu dropdown-menu-right mr-5" style="background-color:#c0deed;">
+									<li class="px-3 py-2">
+											<div class="form-group" style="border-bottom: 0.2px solid; border-color: #00aced;">
+												<a href="{{url("alquiler")}}" class="nav-link font-weight-bold">Apartamentos</a>
+											</div>
+											<div class="form-group" style="border-bottom: 0.2px solid; border-color: #00aced;">
+												<a href="{{url("configuracion")}}" class="nav-link font-weight-bold">Configuración</a>
+											</div>
+									</li>
+								</ul>
+							<li>
+									<a href="#" class="nav-link" title="settings"><i class="fa fa-cog fa-fw fa-lg"></i></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		<!-- /Menú Navbar --> 
+
+		<!-- Cuerpo -->
+		{% if app.user.id == apartamento.user.id %}
+
+			<div class="card m-4 p-4">
+				<div class="row">
+					<div class="col-lg-5">
+						<h5>Modificar Apartamento:</h5>
+						{{ form_start(formulario3) }}
+						{{ form_widget(formulario3) }}
+						{{ form_end(formulario3) }}
+					</div>
+					<div class="col-lg-5 ml-5">
+						<h5>Subir Imágenes:</h5>
+						{{ form_start(formulario2, { 'enctype':"multipart/form-data"})}}
+						{{ form_widget(formulario2) }}
+						{{ form_end(formulario2) }}
+						<hr/>
+							<!-- Slider -->
+							<div id="slider" class="carousel slide mt-5 my-4" data-ride="carousel">
+								<ol class="carousel-indicators">
+								<li data-target="#slider" data-slide-to="0" class="active"></li>
+								<li data-target="#slider" data-slide-to="1"></li>
+								<li data-target="#slider" data-slide-to="2"></li>
+								</ol>
+								<div class="carousel-inner" role="listbox" id="activador">
+									{% for pic in fotos %}
+										<div class="carousel-item">
+											<img class="d-block img-fluid" src="../../imagenes/{{pic.imagen}}">
+										</div>
+									{% endfor %}
+								</div>
+								<a class="carousel-control-prev" href="#slider" role="button" data-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="sr-only">Anterior</span>
+								</a>
+								<a class="carousel-control-next" href="#slider" role="button" data-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="sr-only">Siguiente</span>
+								</a>
+							</div>
+							<!-- /Slider -->
+						<h5>Aceptar Alquiler</h5>
+						{{ form_start(alquiler) }}
+						{{ form_widget(alquiler) }}
+						{{ form_end(alquiler) }}
+					</div>
+
+				</div>
+			</div>
+
+		{% else %}
+		<div class="container">
+
+			<div class="row">
+				
+				<!-- Formulario de Contacto -->
+				<div class="col-lg-4">
+
+					<h1 class="my-4">Formulario de Contacto</h1>
+					<div class="list-group">
+
+						{{ form_start(contacto) }}
+						{{ form_widget(contacto) }}
+						{{ form_end(contacto) }}
+
+					</div>
+
+				</div>
+				<!-- /Formulario de Contacto -->
+
+				<div class="col-lg-8">
+
+					<!-- Apartamento -->
+					<div class="card mt-4">
+						<div class="card-body">
+							<h3 class="card-title">{{ apartamento.nombre }}</h3>
+							<h4 class="text-warning">Precio: {{ apartamento.precio }}€</h4>
+							<p class="card-text">Descripción: {{ apartamento.descripcion }}</p>
+							<span>Dirección: {{ apartamento.direccion }}</span>
+							<h5>Galería:</h5>
+							<!-- Slider -->
+							<div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+								<ol class="carousel-indicators">
+								  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+								  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+								  <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+								  <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+								</ol>
+								<div class="carousel-inner" role="listbox" id="activador">
+										{% for pic in fotos %}
+											<div class="carousel-item">
+												<img class="d-block img-fluid" src="../../imagenes/{{pic.imagen}}">
+											</div>
+										{% endfor %}
+									</div>
+								<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+								  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								  <span class="sr-only">Anterior</span>
+								</a>
+								<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+								  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+								  <span class="sr-only">Siguiente</span>
+								</a>
+							</div>
+							<!-- /Slider -->
+						</div>
+					</div>
+					<!-- /Apartamento -->
+					
+					<!-- /Comentarios -->
+					<div class="card p-4">
+						<div style="margin: 2% auto;">
+							<h2>Comentarios de Huespedes</h2>
+						</div>
+
+						{% for coment in comentarios %}
+							{% if coment.apartamento.id == apartamento.id %}
+							
+							<div class="card card-outline-secondary my-4">
+								<div class="card-header" style="background-color: #ccccb3;">
+									{{ coment.nombre }} {{ coment.apellidos }}
+									{{ coment.fecha }}
+								</div>
+								<div class="card-body">
+									{{ coment.texto }}
+								</div>
+							</div>
+							{% endif %}
+						{% endfor %}
+				
+						<h2>Nuevo Comentario</h2>
+						<div class="card card-outline p-4 m-2">
+							{{ form_start(formulario) }}
+							{{ form_widget(formulario) }}
+							{{ form_end(formulario) }}
+						</div>
+					</div>
+					<!-- /Comentarios -->
+				</div>
+
+			</div>
+
+		</div>
+		{% endif %}
+		<!-- /Cuerpo -->
+	{% endblock %}
+</body>
+        
+    {% block javascripts %}
+				
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+        <script src="{{ asset('js/script.js') }}"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+		<script>
+
+			$(document).ready(function(){
+
+				$('#activador').children().eq(0).addClass('active');
+				$('#textarea').attr('maxLength', '240');
+				$('#appbundle_alquiler').children().eq(3).css('margin-top', '5%');
+			});
+
+		</script>
+
+    {% endblock %}
+
+    {% block footer %}
+		
+	  <br/>
+      <!--Footer-->
+      <footer class="page-footer font-small stylish-color-dark pt-4 mt-4">
+      
+		<!--Footer Links-->
+		<div class="container text-center text-md-left">
+	
+			<!-- Footer links -->
+			<div class="row text-center text-md-left mt-3 pb-3">
+	
+				<!--First column-->
+				<div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+					<h6 class="text-uppercase mb-4 font-weight-bold">Company name</h6>
+					<p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+				</div>
+				<!--/.First column-->
+	
+				<hr class="w-100 clearfix d-md-none">
+	
+				<!--Second column-->
+				<div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+					<h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+					<p><a href="#!">MDBootstrap</a></p>
+					<p><a href="#!">MDWordPress</a></p>
+					<p><a href="#!">BrandFlow</a></p>
+					<p><a href="#!">Bootstrap Angular</a></p>
+				</div>
+				<!--/.Second column-->
+	
+				<hr class="w-100 clearfix d-md-none">
+	
+				<!--Third column-->
+				<div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+					<h6 class="text-uppercase mb-4 font-weight-bold">Useful links</h6>
+					<p><a href="#!">Your Account</a></p>
+					<p><a href="#!">Become an Affiliate</a></p>
+					<p><a href="#!">Shipping Rates</a></p>
+					<p><a href="#!">Help</a></p>
+				</div>
+				<!--/.Third column-->
+	
+				<hr class="w-100 clearfix d-md-none">
+	
+				<!--Fourth column-->
+				<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+					<h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+					<p><i class="fa fa-home mr-3"></i> New York, NY 10012, US</p>
+					<p><i class="fa fa-envelope mr-3"></i> info@gmail.com</p>
+					<p><i class="fa fa-phone mr-3"></i> + 01 234 567 88</p>
+					<p><i class="fa fa-print mr-3"></i> + 01 234 567 89</p>
+				</div>
+				<!--/.Fourth column-->
+	
+			</div>
+			<!-- Footer links -->
+	
+			<hr>
+	
+			<div class="row py-3 d-flex align-items-center">
+	
+				<!--Grid column-->
+				<div class="col-md-8 col-lg-8">
+	
+					<!--Copyright-->
+					<p class="text-center text-md-left grey-text">© 2018 Copyright</p>
+					<!--/.Copyright-->
+	
+				</div>
+				<!--Grid column-->
+	
+				<!--Grid column-->
+				<div class="col-md-4 col-lg-4 ml-lg-0">
+	
+					<!--Social buttons-->
+					<div class="text-center text-md-right">
+						<ul class="list-unstyled list-inline">
+							<li class="list-inline-item"><a class="btn-floating btn-sm rgba-white-slight mx-1"><i class="fa fa-facebook"></i></a></li>
+							<li class="list-inline-item"><a class="btn-floating btn-sm rgba-white-slight mx-1"><i class="fa fa-twitter"></i></a></li>
+							<li class="list-inline-item"><a class="btn-floating btn-sm rgba-white-slight mx-1"><i class="fa fa-google-plus"></i></a></li>
+							<li class="list-inline-item"><a class="btn-floating btn-sm rgba-white-slight mx-1"><i class="fa fa-linkedin"></i></a></li>
+						</ul>
+					</div>
+					<!--/.Social buttons-->
+	
+				</div>
+				<!--Grid column-->
+	
+			</div>
+	
+		</div>
+	
+	</footer>
+	<!--/.Footer-->			   
+                      
+    {% endblock %}
+
+</html>

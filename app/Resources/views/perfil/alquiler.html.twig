@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% block stylesheets %}
+        
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="{{ asset('css/estilo.css') }}" />
+
+{% endblock %}
+</head>
+
+{% block body %}
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #00aced;">
+    <div class="container">
+      <img id="logo" src="../imagenes/logo.png" alt="">
+      <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#divCollapse">
+      &#9776;
+      </button>
+      <div class="collapse navbar-collapse" id="divCollapse">
+        <ul class="nav navbar-nav">
+          <li class="nav-item"><a href="{{ url('homepage') }}" class="nav-link font-weight-bold" >Inicio</a></li>
+          <li class="nav-item"><a href="#" id="ayuda" class="nav-link font-weight-bold">Ayuda</a></li>
+          
+        </ul>
+        <ul class="nav navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link font-weight-bold" href="{{url("logout")}}"> Cerrar Sesión</a></li>
+          <button type="button" data-toggle="dropdown" style="background-color:#00aced;" class="btn dropdown-toggle nav-link font-weight-bold">Perfil</button>
+          <ul class="dropdown-menu dropdown-menu-right mr-5" style="background-color:#c0deed;">
+            <li class="px-3 py-2">
+                <div class="form-group" style="border-bottom: 0.2px solid; border-color: #00aced;">
+                  <a href="{{url("alquiler")}}" class="nav-link font-weight-bold">Apartamentos</a>
+                </div>
+                <div class="form-group" style="border-bottom: 0.2px solid; border-color: #00aced;">
+                  <a href="{{url("configuracion")}}" class="nav-link font-weight-bold">Configuración</a>
+                </div>
+            </li>
+          </ul>
+        <li>
+            <a href="#" class="nav-link" title="settings"><i class="fa fa-cog fa-fw fa-lg"></i></a>
+        </li>
+      </ul>
+      </div>
+    </div>
+  </nav>		
+
+  <!-- Formulario Apartamento -->
+<div class="col-lg-12" style="margin: 5% auto;" id="body">
+  <div class="row">
+      <div class="form-control col-lg-3" style="margin-right: 2%; margin-left: 8%;">
+        <h2>Creación Apartamento</h2>
+        <hr/>
+        {{ form_start(formulario) }}
+        {{ form_widget(formulario) }}
+        {{ form_end(formulario) }}
+      </div>
+      <div class="form-control col-lg-3" style="margin-right: 2%; margin-left: 2%;">
+        <h2>Apartamentos en Propiedad</h2>  
+        <hr/>
+        <ul>
+          {% for apar in propiedad %}
+
+          <ul>{{ apar }}</ul>
+          <hr/>
+
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="form-control col-lg-3" style="margin-right: 2%; margin-left: 2%;">
+        <h2>Apartamentos en Alquiler</h2>  
+        <hr/>
+        <ul>
+            {% for alq in alquilado %}
+  
+            <ul>{{ alq }}</ul>
+            <hr/>
+  
+            {% endfor %}
+          </ul>
+      </div>
+  </div>
+</div>
+<!-- /Formulario Apartamento -->
+
+{% endblock %}
+
+{% block javascripts %}
+				
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+
+  $(document).ready(function(){
+
+    $('#appbundle_apartamento_localidad').addClass('form-name form-control');
+  });
+
+</script>
+
+
+{% endblock %}
+
+<footer>
+    {% block footer %}
+    
+	  <br/>
+      <!--Footer-->
+      <footer class="page-footer font-small stylish-color-dark pt-4 mt-4">
+      
+		<!--Footer Links-->
+		<div class="container text-center text-md-left">
+	
+			<!-- Footer links -->
+			<div class="row text-center text-md-left mt-3 pb-3">
+	
+				<!--First column-->
+				<div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+					<h6 class="text-uppercase mb-4 font-weight-bold">Company name</h6>
+					<p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+				</div>
+				<!--/.First column-->
+	
+				<hr class="w-100 clearfix d-md-none">
+	
+				<!--Second column-->
+				<div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+					<h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+					<p><a href="#!">MDBootstrap</a></p>
+					<p><a href="#!">MDWordPress</a></p>
+					<p><a href="#!">BrandFlow</a></p>
+					<p><a href="#!">Bootstrap Angular</a></p>
+				</div>
+				<!--/.Second column-->
+	
+				<hr class="w-100 clearfix d-md-none">
+	
+				<!--Third column-->
+				<div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+					<h6 class="text-uppercase mb-4 font-weight-bold">Useful links</h6>
+					<p><a href="#!">Your Account</a></p>
+					<p><a href="#!">Become an Affiliate</a></p>
+					<p><a href="#!">Shipping Rates</a></p>
+					<p><a href="#!">Help</a></p>
+				</div>
+				<!--/.Third column-->
+	
+				<hr class="w-100 clearfix d-md-none">
+	
+				<!--Fourth column-->
+				<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+					<h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+					<p><i class="fa fa-home mr-3"></i> New York, NY 10012, US</p>
+					<p><i class="fa fa-envelope mr-3"></i> info@gmail.com</p>
+					<p><i class="fa fa-phone mr-3"></i> + 01 234 567 88</p>
+					<p><i class="fa fa-print mr-3"></i> + 01 234 567 89</p>
+				</div>
+				<!--/.Fourth column-->
+	
+			</div>
+			<!-- Footer links -->
+	
+			<hr>
+	
+			<div class="row py-3 d-flex align-items-center">
+	
+				<!--Grid column-->
+				<div class="col-md-8 col-lg-8">
+	
+					<!--Copyright-->
+					<p class="text-center text-md-left grey-text">© 2018 Copyright</p>
+					<!--/.Copyright-->
+	
+				</div>
+				<!--Grid column-->
+	
+				<!--Grid column-->
+				<div class="col-md-4 col-lg-4 ml-lg-0">
+	
+					<!--Social buttons-->
+					<div class="text-center text-md-right">
+						<ul class="list-unstyled list-inline">
+							<li class="list-inline-item"><a class="btn-floating btn-sm rgba-white-slight mx-1"><i class="fa fa-facebook"></i></a></li>
+							<li class="list-inline-item"><a class="btn-floating btn-sm rgba-white-slight mx-1"><i class="fa fa-twitter"></i></a></li>
+							<li class="list-inline-item"><a class="btn-floating btn-sm rgba-white-slight mx-1"><i class="fa fa-google-plus"></i></a></li>
+							<li class="list-inline-item"><a class="btn-floating btn-sm rgba-white-slight mx-1"><i class="fa fa-linkedin"></i></a></li>
+						</ul>
+					</div>
+					<!--/.Social buttons-->
+	
+				</div>
+				<!--Grid column-->
+	
+			</div>
+	
+		</div>
+	
+	</footer>
+	<!--/.Footer-->		
+
+    {% endblock %}
+</footer>
+</html>

@@ -1,0 +1,25 @@
+@media (min-width: 992px) {
+
+	body {
+		padding-top: 56px;
+	}
+
+}
+			
+#logo {
+	
+	margin-right: 2%;
+	margin-left: -7%;
+	height: 50px;
+	width: 60px;
+}	
+	
+body {
+
+	padding-top: 54px;
+}
+
+#cuerpo {
+
+	height: 100%;
+}

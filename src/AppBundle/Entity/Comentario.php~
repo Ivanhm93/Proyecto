@@ -1,0 +1,74 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Comentario
+ *
+ * @ORM\Table(name="comentario", indexes={@ORM\Index(name="fk_comentario_user1_idx", columns={"user_id"}), @ORM\Index(name="fk_comentario_apartamento1_idx", columns={"apartamento_id"})})
+ * @ORM\Entity
+ */
+class Comentario
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Fecha", type="string", length=10, nullable=true)
+     */
+    private $fecha;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Texto", type="string", length=255, nullable=true)
+     */
+    private $texto;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Nombre", type="string", length=45, nullable=true)
+     */
+    private $nombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Apellidos", type="string", length=45, nullable=true)
+     */
+    private $apellidos;
+
+    /**
+     * @var \Apartamento
+     *
+     * @ORM\ManyToOne(targetEntity="Apartamento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="apartamento_id", referencedColumnName="id")
+     * })
+     */
+    private $apartamento;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $user;
+
+
+}
+
