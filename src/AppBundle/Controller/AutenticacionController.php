@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -32,6 +33,14 @@ class AutenticacionController extends Controller
             if($formulario->isSubmitted() && $formulario->isValid())
             {
 
+
+                $em = $this->getDoctrine()->getManager();
+                $user_repo = $em->getRepository('AppBundle:User');
+                
+                $query = $em->createQuery('Select u From AppBundle:User u Where u.nick = :nick');
+                
+                $user_isset = $query->getResult();
+
                 $usuario=$formulario->getData();
                 $usuario->setPassword(password_hash($usuario->getPassword(), PASSWORD_BCRYPT));
                 $usuario->addRol($rol);
@@ -49,6 +58,31 @@ class AutenticacionController extends Controller
             ["formulario"=>$formulario->createView()]);
     }
 
+
+    /**
+     *
+     * @Route("/nick-test", name="nick")
+     * 
+     */
+    public function nickAction(Request $peticion) {
+
+        $nick = $peticion->get("nick");
+			
+        $em = $this->getDoctrine()->getManager();
+        $user_repo = $em->getRepository("AppBundle:User");
+        $user_isset = $user_repo->findOneBy(array ("username" => $nick));
+        
+        if(count($user_isset) >= 1 && is_object($user_isset)) {
+            
+            $result = "usado";
+        }
+        else {
+            
+            $result = "sinusar";
+        }
+        
+        return new Response($result);
+    }
 
     /**
      *

@@ -78,6 +78,7 @@
 
 </body>
 
+{% endblock %}
 {% block javascripts %}
 				
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -87,9 +88,38 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-{% endblock %}
+<script>
+    
+            $("#appbundle_user_username").blur(function(){
+                
+                var nick = this.value;
+                
+                $.ajax({
+                    
+                    url: 'http://localhost:8080/chustor/web/app_dev.php/nick-test',
+                    data: {nick: nick},
+                    type: 'POST',
+                    success: function(Response){
+                        
+                        if(Response === 'usado') {
+                            
+                           $('#appbundle_user_username').css("border", "1px solid red"); 
+                        }
+                        else if(Response === 'sinusar') {
+                            
+                            $('#appbundle_user_username').css("border", "1px solid green");
+                        }
+
+                    }
+
+                });
+                
+            });
+
+</script>
 
 {% endblock %}
+
 
 {% block footer %}
         

@@ -28,6 +28,7 @@ class ApartamentoController extends Controller
 
         $apartamento=$this->getDoctrine()->getRepository("AppBundle\Entity\Apartamento");
         $apartamento=$apartamento->findOneBy(array('id' => $id));
+        $fotito = $apartamento->getImagen();
 
         $fotos=$this->getDoctrine()->getRepository("AppBundle\Entity\Foto");
         $fotos=$fotos->findBy(array('apartamento' => $apartamento));
@@ -48,9 +49,13 @@ class ApartamentoController extends Controller
         $nombre = $this->getUser()->getNombre();
         $apellido = $this->getUser()->getNombre(); 
 
+        $galeria=new Foto();
+        $formulario2=$this->createForm('AppBundle\Form\FotoType',$galeria);
+
+        $totales = $this->getDoctrine()->getRepository("AppBundle\Entity\Comentario");
+        $totales = $totales->findAll();
 
         $fecha =  date('d/m/Y');
-
 
         //Creo el formulario
         $formulario5=$this->createFormBuilder()
@@ -124,16 +129,23 @@ class ApartamentoController extends Controller
         if($formulario3->isSubmitted())
         {
 
+            $em2=$this->getDoctrine()->getManager();
             $update=$formulario3->getData();
 
-            $em2=$this->getDoctrine()->getManager();
-            $em2->persist($update);
-            $em2->flush();
+            if($update->getImagen() == null) {
+
+                $updateImagen=$formulario3->getData()->setImagen($fotito);
+                $em2->persist($updateImagen);
+                $em2->flush();
+            }
+            else {
+ 
+                $em2->persist($update);
+                $em2->flush();
+            }
 
         }
 
-        $galeria=new Foto();
-        $formulario2=$this->createForm('AppBundle\Form\FotoType',$galeria);
 
         $formulario2->handleRequest($peticion2);
 
@@ -179,13 +191,6 @@ class ApartamentoController extends Controller
             $em->flush();
 
         }
-
-            $totales = $this->getDoctrine()->getRepository("AppBundle\Entity\Comentario");
-            $totales = $totales->findAll();
-
-
-            
-
 
             //LLamada a la vista
             return $this->render("apartamento/apartamento.html.twig",
