@@ -1,184 +1,178 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="{{ asset('css/estilo.css') }}" />
         
-			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-			<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-			<link rel="stylesheet" href="{{ asset('css/estilo.css') }}" />
+</head>
 
+<body style="background-color: #eee;">
 
-    </head>
-
-
-
-<body id="body">
-
-<!-- Menú Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #00aced;">
-    <div class="container">
-        <img id="logo" src="../imagenes/logo.png" alt="">
-        <button class="navbar-toggler border-0" id="expansor" type="button" data-toggle="collapse" data-target="#divCollapse">
-        &#9776;
-        </button>
-        <div class="collapse navbar-collapse" id="divCollapse">
-            <ul class="nav navbar-nav">
-                <li class="nav-item"><a href="{{ url('homepage') }}" class="nav-link font-weight-bold" >Inicio</a></li>
-                <li class="nav-item"><a href="#" id="ayuda" class="nav-link font-weight-bold">Ayuda</a></li>
-            </ul>
-            <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
+    <!-- Menú Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #00aced;">
+        <div class="container">
+            <img id="logo" src="../imagenes/logo.png" alt="">
+            <button class="navbar-toggler border-0" id="expansor" type="button" data-toggle="collapse" data-target="#divCollapse">
+                &#9776;
+            </button>
+            <div class="collapse navbar-collapse" id="divCollapse">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item"><a href="{{ url('homepage') }}" class="nav-link font-weight-bold" >Inicio</a></li>
+                    <li class="nav-item"><a href="#" id="ayuda" class="nav-link font-weight-bold">Ayuda</a></li>
+                </ul>
+                <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
                     <li class="nav-item order-2 order-md-1">
                         <a href="#" class="nav-link" title="settings"><i class="fa fa-cog fa-fw fa-lg"></i></a>
                     </li>
                     <li class="dropdown order-1">
-                            <li class="nav-item"><a href="{{ url('login') }}" class="nav-link font-weight-bold">Inicia Sesión</a></li>
+                        <li class="nav-item"><a href="{{ url('login') }}" class="nav-link font-weight-bold">Inicia Sesión</a></li>
                     </li>
                 </ul>
+            </div>
         </div>
-    </div>
-</nav>
-<!-- /Menú Navbar --> 
+    </nav>
+    <!-- /Menú Navbar --> 
 
-<!-- Formulario Registro -->
-<div class="col-lg-12" style="margin: 5% auto;" id="body">
-    <div class="row">
-        <div style="width: 100%; text-align: center;">
-            <h2>Formulario de registro</h2>
+    <!-- Formulario Registro -->
+    <div class="col-lg-12" style="margin: 5% auto;" id="body">
+        <div class="row">
+            <div style="width: 100%; text-align: center;">
+                <h2>Formulario de registro</h2>
+            </div>
+            <div class="form-control col-lg-5" style="margin-left: 5%; margin-top: 2%;">
+                {{ form_start(formulario) }}
+                {{ form_label(formulario.username) }}
+                {{ form_widget(formulario.username) }}
+                {{ form_label(formulario.password) }}
+                {{ form_widget(formulario.password) }}
+                {{ form_label(formulario.email) }}
+                {{ form_widget(formulario.email) }}
+            </div>
+            <div class="form-control col-lg-5" style="margin-left: 5%; margin-top: 2%;">
+                {{ form_label(formulario.dni) }}
+                {{ form_widget(formulario.dni) }}
+                {{ form_label(formulario.nombre) }}
+                {{ form_widget(formulario.nombre) }}
+                {{ form_label(formulario.apellidos) }}
+                {{ form_widget(formulario.apellidos) }}
+                {{ form_label(formulario.telefono) }}
+                {{ form_widget(formulario.telefono) }}
+            </div>
         </div>
-        <div class="form-control col-lg-5" style="margin-left: 5%; margin-top: 2%;">
-            {{ form_start(formulario) }}
-            {{ form_label(formulario.username) }}
-            {{ form_widget(formulario.username) }}
-            {{ form_label(formulario.password) }}
-            {{ form_widget(formulario.password) }}
-            {{ form_label(formulario.email) }}
-            {{ form_widget(formulario.email) }}
-        </div>
-        <div class="form-control col-lg-5" style="margin-left: 5%; margin-top: 2%;">
-            {{ form_label(formulario.dni) }}
-            {{ form_widget(formulario.dni) }}
-            {{ form_label(formulario.nombre) }}
-            {{ form_widget(formulario.nombre) }}
-            {{ form_label(formulario.apellidos) }}
-            {{ form_widget(formulario.apellidos) }}
-            {{ form_label(formulario.telefono) }}
-            {{ form_widget(formulario.telefono) }}
-  
+        <div style="margin-left: 85%; margin-top: 5%;">
+            {{ form_end(formulario) }}
         </div>
 
     </div>
-    <div style="margin-left: 85%; margin-top: 5%;">
-        {{ form_end(formulario) }}
-    </div>
-
-</div>
-<!-- /Formulario Registro -->
+    <!-- /Formulario Registro -->
 
 </body>
 
 				
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-<script src="{{ asset('js/script.js') }}"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-<script>
-    
-            $("#appbundle_user_username").blur(function(){
-                
-                var nick = this.value;
-                
-                $.ajax({
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        
+        $("#appbundle_user_username").blur(function(){
                     
-                    url: 'http://localhost:8080/chustor/web/app_dev.php/nick-test',
-                    data: {nick: nick},
-                    type: 'POST',
-                    success: function(Response){
+            var nick = this.value;
+                    
+            $.ajax({
                         
-                        if(Response === 'usado') {
+                url: 'http://localhost:8080/chustor/web/app_dev.php/nick-test',
+                data: {nick: nick},
+                type: 'POST',
+                success: function(Response){
                             
-                           $('#appbundle_user_username').css("border", "1px solid red"); 
-                        }
-                        else if(Response === 'sinusar') {
-                            
-                            $('#appbundle_user_username').css("border", "1px solid green");
-                        }
-
+                    if(Response === 'usado') {
+                                
+                        $('#appbundle_user_username').css("border", "1px solid red"); 
+                    }
+                    else if(Response === 'sinusar') {
+                                
+                        $('#appbundle_user_username').css("border", "1px solid green");
                     }
 
-                });
-                
-            });
+                }
 
-</script>
+            });
+                    
+        });
+
+    </script>
+
 <!--Footer-->
 <footer class="page-footer font-small stylish-color-dark pt-4 mt-4">
 
-        <!--Footer Links-->
-        <div class="container text-center text-md-left">
+    <!--Footer Links-->
+    <div class="container text-center text-md-left">
       
-            <!-- Footer links -->
-            <div class="row text-center text-md-left mt-3 pb-3">
+        <!-- Footer links -->
+        <div class="row text-center text-md-left mt-3 pb-3">
       
-                <!--First column-->
-                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-                    <h6 class="text-uppercase mb-4 font-weight-bold">Company name</h6>
-                    <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                </div>
-                <!--/.First column-->
+            <!--First column-->
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">Company name</h6>
+                <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+            </div>
+            <!--/.First column-->
       
-                <hr class="w-100 clearfix d-md-none">
+            <hr class="w-100 clearfix d-md-none">
       
-                <!--Second column-->
-                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
-                    <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
-                    <p><a href="#!">MDBootstrap</a></p>
-                    <p><a href="#!">MDWordPress</a></p>
-                    <p><a href="#!">BrandFlow</a></p>
-                    <p><a href="#!">Bootstrap Angular</a></p>
-                </div>
-                <!--/.Second column-->
+            <!--Second column-->
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+                <p><a href="#!">MDBootstrap</a></p>
+                <p><a href="#!">MDWordPress</a></p>
+                <p><a href="#!">BrandFlow</a></p>
+                <p><a href="#!">Bootstrap Angular</a></p>
+            </div>
+            <!--/.Second column-->
       
-                <hr class="w-100 clearfix d-md-none">
+            <hr class="w-100 clearfix d-md-none">
       
-                <!--Third column-->
-                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
-                      <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
-                      <p><i class="fa fa-home mr-3"></i> New York, NY 10012, US</p>
-                      <p><i class="fa fa-envelope mr-3"></i> info@gmail.com</p>
-                      <p><i class="fa fa-phone mr-3"></i> + 01 234 567 88</p>
-                      <p><i class="fa fa-print mr-3"></i> + 01 234 567 89</p>
-                  </div>
-                <!--/.Third column-->
+            <!--Third column-->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+                <p><i class="fa fa-home mr-3"></i> New York, NY 10012, US</p>
+                <p><i class="fa fa-envelope mr-3"></i> info@gmail.com</p>
+                <p><i class="fa fa-phone mr-3"></i> + 01 234 567 88</p>
+                <p><i class="fa fa-print mr-3"></i> + 01 234 567 89</p>
+            </div>
+            <!--/.Third column-->
+      
+        </div>
+        <!-- Footer links -->
+      
+        <hr>
+      
+        <div class="row py-3 d-flex align-items-center">
+      
+            <!--Grid column-->
+            <div class="col-md-8 col-lg-8">
+      
+                <!--Copyright-->
+                <p class="text-center text-md-left grey-text">© 2018 Copyright</p>
+                <!--/.Copyright-->
       
             </div>
-            <!-- Footer links -->
-      
-               <hr>
-      
-                <div class="row py-3 d-flex align-items-center">
-      
-                <!--Grid column-->
-                <div class="col-md-8 col-lg-8">
-      
-                    <!--Copyright-->
-                    <p class="text-center text-md-left grey-text">© 2018 Copyright</p>
-                    <!--/.Copyright-->
-      
-                </div>
-                <!--Grid column-->
-      
-              </div>
-                <!--Grid column-->
-      
-          </div>
+            <!--Grid column-->
       
         </div>
       
-      </footer>
-      <!--/.Footer-->		
+    </div>
+      
+</footer>
+<!--/.Footer-->		
+
 </html>
