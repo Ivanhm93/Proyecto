@@ -78,39 +78,10 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/registro.js') }}"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-        
-        $("#appbundle_user_username").blur(function(){
-                    
-            var nick = this.value;
-                    
-            $.ajax({
-                        
-                url: 'http://localhost:8080/chustor/web/app_dev.php/nick-test',
-                data: {nick: nick},
-                type: 'POST',
-                success: function(Response){
-                            
-                    if(Response === 'usado') {
-                                
-                        $('#appbundle_user_username').css("border", "1px solid red"); 
-                    }
-                    else if(Response === 'sinusar') {
-                                
-                        $('#appbundle_user_username').css("border", "1px solid green");
-                    }
-
-                }
-
-            });
-                    
-        });
-
-    </script>
-
+    
 <!--Footer-->
 <footer class="page-footer font-small stylish-color-dark pt-4 mt-4">
 

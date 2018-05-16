@@ -194,115 +194,13 @@
 	<!-- /Cuerpo -->
 			
 </body>
-
-				
+			
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-	<script src="{{ asset('js/script.js') }}"></script>
+	<script src="{{ asset('js/home.js') }}"></script>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-	<script>
-
-		$(document).ready(function(){
-
-			$('#provincia').each(function(){
-				$(this).change(function(){
-
-					$('#filtrador').css('display','inline');
-					$('#loadingAjax').removeAttr('style');
-					$('#localidad').remove();
-					$('#lbllocalidad').remove();
-					$('#ajaxProv').append('<label id="lbllocalidad">Localidad:</label>');
-					$('#ajaxProv').append('<select name="localidad" id="localidad"></select>');
-					var url1=$(this).val();
-					$.ajax({
-						method: "GET",
-						url: "home/" +url1,
-						dataType: 'json',
-						success: function(data)
-						{
-							$('#loadingAjax').css('display', 'none');
-							var posts=JSON.parse(data.posts);
-							$('#localidad').empty();
-
-								for (i in posts)
-								{
-									
-									$("#localidad").append("<option value='"+ posts[i].id + "'>"+ posts[i].nombre + "</option> " );                
-								
-								}	
-							
-						},
-						error: function(jqXHR, exception)
-						{
-							if(jqXHR.status === 405)
-							{
-								console.error("METHOD NOT ALLOWED!");
-							}
-						}
-					});
-				})
-				
-			});
-
-
-			$('#filtroSelect').each(function(){
-				$(this).change(function(){
-
-					var valor = $("#filtroSelect").val();
-					var $divs = $('div.ordenables');
-
-					switch(valor) {
-						case 'Ordenaciones':
-							$("#apartamentos").load(" #apartamentos");
-							break;
-						case 'Precios Bajos':
-							var ordenados = $divs.sort(function (a, b) {
-								return $(a).find("h5").text() > $(b).find("h5").text();
-							});
-							$("#apartamentos").html(ordenados);
-						break;
-						case 'Precios Altos':
-							var ordenados = $divs.sort(function (a, b) {
-								return $(a).find("h5").text() < $(b).find("h5").text();
-							});
-							$("#apartamentos").html(ordenados);
-						break;
-						case 'Pocas Personas':
-							var ordenados = $divs.sort(function (a, b) {
-								return $(a).find("h6:first").text() > $(b).find("h6:first").text();
-							});
-							$("#apartamentos").html(ordenados);
-						break;
-						case 'Muchas Personas':
-						var ordenados = $divs.sort(function (a, b) {
-							return $(a).find("h6:first").text() < $(b).find("h6:first").text();
-						});
-						$("#apartamentos").html(ordenados);
-						break;
-						case 'Pocas Habitaciones':
-							var ordenados = $divs.sort(function (a, b) {
-								return $(a).find("h6:eq(1)").text() > $(b).find("h6:eq(1)").text();
-							});
-							$("#apartamentos").html(ordenados);	
-						break;
-						case 'Muchas Habitaciones':
-						var ordenados = $divs.sort(function (a, b) {
-							return $(a).find("h6:eq(1)").text() < $(b).find("h6:eq(1)").text();
-						});
-						$("#apartamentos").html(ordenados);	
-						break;
-					}
-				})
-				
-			});
-
-		}); 
-
-	</script>
-
 
 <!--Footer-->
 <footer class="page-footer font-small stylish-color-dark pt-4 mt-4">

@@ -48,10 +48,9 @@ class DefaultController extends Controller
 
             $query = $em->createQuery(
                 "SELECT ap
-                FROM AppBundle:Apartamento ap -- JOIN AppBundle:Alquiler al
+                FROM AppBundle:Apartamento ap
                 WHERE ap.localidad = $formLocalidad and ap.precio BETWEEN '$precio1' and '$precio2'
                 and ap.numPersonas = $formPersonas and ap.numHabitaciones = $formHabitaciones"
-                // and al.fechaIni = $formDesde and al.fechaFin = $formHasta"
             );
             
             $propiedad = $query->getResult();
