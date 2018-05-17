@@ -60,4 +60,25 @@ class AlquilerController extends Controller
         return $this->render("perfil/alquiler.html.twig",
         ["formulario"=>$formulario->createView(), "propiedad" => $propiedad, "alquilado" => $alquilado]);
     }
+
+     /**
+     * 
+     * @Route("/Alquiler/Borrar/{id}", name="borrarAlquiler")
+     * 
+     */
+    public function borrarAlquilerAction($id) {
+
+        $apartamento=$this->getDoctrine()->getRepository("AppBundle\Entity\Apartamento");
+        $apartamento=$apartamento->findOneBy(array('id' => $id));
+
+        $query = $this->getDoctrine()->getManager()->createQuery('delete FROM AppBundle:Apartamento ap where ap.id =:id')
+                      ->setParameter('id', $id);;
+        $result = $query->getResult();
+        
+        $us=$this->getDoctrine()->getManager();
+        $us->persist($apartamento);
+        $us->flush();
+
+        return $this->redirectToRoute("alquiler");
+    }
 }

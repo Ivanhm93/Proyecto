@@ -17,6 +17,7 @@ class FotoType extends AbstractType
     {
         $builder
         ->add('imagen', FileType::Class, array(
+            'data_class' => null,
 			'attr' => array(
 				'class' => 'form-control'
 			)))

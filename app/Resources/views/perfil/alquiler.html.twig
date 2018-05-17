@@ -65,7 +65,11 @@
 
                     {% for apar in propiedad %}
 
-                    <ul>{{ apar }}</ul>
+                        <ul style="padding: 2%;">
+                           {{ apar.id }} - {{ apar }}
+                           <a href="{{url("borrarAlquiler",{"id":apar.id, "id":apar.id})}}">Eliminar</a>
+                        </ul>
+                        
                     <hr/>
 
                     {% endfor %}

@@ -30,8 +30,8 @@ class ApartamentoController extends Controller
         $apartamento=$apartamento->findOneBy(array('id' => $id));
         $fotito = $apartamento->getImagen();
 
-        $fotos=$this->getDoctrine()->getRepository("AppBundle\Entity\Foto");
-        $fotos=$fotos->findBy(array('apartamento' => $apartamento));
+        $slider = $this->getDoctrine()->getRepository("AppBundle\Entity\Foto");
+        $slider = $slider->findBy(array('apartamento' => $id));
 
         $correo1 = $apartamento->getUser()->getId();
         $correo2=$this->getDoctrine()->getRepository("AppBundle\Entity\User");
@@ -146,34 +146,6 @@ class ApartamentoController extends Controller
 
         }
 
-
-        $formulario2->handleRequest($peticion2);
-
-        if($formulario2->isSubmitted())
-        {
-
-            // Recogemos el fichero
-            $foto=$formulario2['imagen']->getData();
-            
-            // Sacamos la extensión del fichero
-            $ext=$foto->guessExtension();
-            
-            // Le ponemos un nombre al fichero
-            $galeria_nombre=time().".".$ext;
-            
-            // Guardamos el fichero en el directorio uploads que estará en el directorio /web del framework
-            $foto->move("imagenes", $galeria_nombre);
-            
-            // Establecemos el nombre de fichero en el atributo de la entidad
-            $galeria->setImagen($galeria_nombre);
-            $galeria->setApartamento($apartamento);
-
-            $em2=$this->getDoctrine()->getManager();
-            $em2->persist($galeria);
-            $em2->flush();
-
-        }
-
         $formulario->handleRequest($peticion);
 
         if($formulario->isSubmitted())
@@ -195,10 +167,89 @@ class ApartamentoController extends Controller
             //LLamada a la vista
             return $this->render("apartamento/apartamento.html.twig",
             ["formulario"=>$formulario->createView(),
-            'apartamento' => $apartamento, 'comentarios' => $totales, 'fotos' => $fotos, 
-            'alquiler' => $formulario4->createView(), 'contacto' => $formulario5->createView(),
-            'formulario2' => $formulario2->createView(),'formulario3' => $formulario3->createView()]);
+            'apartamento' => $apartamento, 'comentarios' => $totales, 
+            'alquiler' => $formulario4->createView(), 'fotos' => $slider,
+            'contacto' => $formulario5->createView(),'formulario3' => $formulario3->createView()]);
 
+    }
+
+    /**
+     * 
+     * @Route("/Apartamento/Galeria/{id}", name="crudGaleria")
+     * 
+     */
+    public function crudGaleria($id, Request $peticion) {
+
+        $apartamento=$this->getDoctrine()->getRepository("AppBundle\Entity\Apartamento");
+        $apartamento=$apartamento->findOneBy(array('id' => $id));
+
+        $foto=$this->getDoctrine()->getRepository("AppBundle\Entity\Foto");
+        $foto=$foto->findBy(array('apartamento' => $apartamento));
+
+        $galeria= new Foto();
+        $formulario=$this->createForm('AppBundle\Form\FotoType', $galeria);
+
+        $fotos=$this->getDoctrine()->getRepository("AppBundle\Entity\Foto");
+        $fotos=$fotos->findBy(array('apartamento' => $apartamento));        
+
+	    $formulario->handleRequest($peticion);
+
+        if($formulario->isSubmitted())
+        {
+
+            // Recogemos el fichero
+            $foto=$formulario['imagen']->getData();
+            
+            // Sacamos la extensión del fichero
+            $ext=$foto->guessExtension();
+            
+            // Le ponemos un nombre al fichero
+            $galeria_nombre=time().".".$ext;
+            
+            // Guardamos el fichero en el directorio uploads que estará en el directorio /web del framework
+            $foto->move("imagenes", $galeria_nombre);
+            
+            // Establecemos el nombre de fichero en el atributo de la entidad
+            $galeria->setImagen($galeria_nombre);
+            $galeria->setApartamento($apartamento);
+
+            $em=$this->getDoctrine()->getManager();
+            $em->persist($galeria);
+            $em->flush();
+
+            return $this->redirectToRoute('crudGaleria',['id' => $id]);
+
+        }
+
+        //LLamada a la vista
+        return $this->render("perfil/crudGaleria.html.twig", 
+        ['fotos' => $foto, 'apar' => $apartamento, 'formulario' => $formulario->createView()]);
+    }
+
+    /**
+     * 
+     * @Route("/Apartamento/Galeria/Borrar/{apar}/{id}", name="borrarGaleria")
+     * 
+     */
+    public function borrarGaleria($apar, $id) {
+
+        $formulario=$this->createForm('AppBundle\Form\FotoType');
+
+        $apartamento=$this->getDoctrine()->getRepository("AppBundle\Entity\Apartamento");
+        $apartamento=$apartamento->findOneBy(array('id' => $apar));
+
+        $foto=$this->getDoctrine()->getRepository("AppBundle\Entity\Foto");
+        $foto=$foto->findBy(array('apartamento' => $apar));
+
+        $query = $this->getDoctrine()->getManager()->createQuery('delete FROM AppBundle:Foto f where f.id =:id')
+        ->setParameter('id', $id);;
+        $result = $query->getResult();
+
+        $em=$this->getDoctrine()->getManager();
+        $em->flush();
+
+        //LLamada a la vista
+        return $this->redirectToRoute("crudGaleria",['id' => $apar]);
     }
 
 }
