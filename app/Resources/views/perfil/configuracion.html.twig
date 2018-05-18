@@ -56,8 +56,9 @@
             <div class="row">
                 <div class="col-lg-6">
                 {{ form_start(formulario) }}
-                {{ form_row(formulario.username) }}
-                {{ form_row(formulario.password,{value: app.user.password } )}}
+                {{ form_row(formulario.username,{attr:{readonly:'true'}}) }}
+                <div id="error"></div>
+                {{ form_row(formulario.password,{value: app.user.password}) }}
                 {{ form_row(formulario.email) }}
                 </div>
                 <div class="col-lg-6">

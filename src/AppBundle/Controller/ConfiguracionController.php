@@ -20,24 +20,36 @@ class ConfiguracionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $usuario = $em->getRepository("AppBundle\Entity\User");
 
-            $usu = $this->getUser()->getUsername();
-            $id = $this->getUser()->getId();     
-            $user = $usuario->find($id); 
+        $usu = $this->getUser()->getUsername();
+        $password = $this->getUser()->getPassword();
 
-            $formulario=$this->createForm('AppBundle\Form\UserType',$user);
-    
-            
-            $formulario->handleRequest($peticion);
+        $id = $this->getUser()->getId();     
+        $user = $usuario->find($id); 
 
-            if($formulario->isSubmitted()) {
+        $formulario=$this->createForm('AppBundle\Form\UserType',$user);
+              
+        $formulario->handleRequest($peticion);
 
-                $em->flush();  
-                $password = $this->getUser()->getPassword();
-                $contra = $this->getUser()->setPassword(password_hash($password, PASSWORD_BCRYPT));
-                $em->persist($contra);
+        if($formulario->isSubmitted()) {
+
+            $form = $formulario->getData();
+
+            $contra = $formulario->getData()->getPassword();
+
+            if($contra == $password) {
+
+                $em->persist($form);
                 $em->flush();
-                return $this->redirectToRoute("configuracion");
-            }    
+            }
+            else {
+
+                $form->setPassword(password_hash($form->getPassword(), PASSWORD_BCRYPT));
+                $em->persist($form);
+                $em->flush();
+            }
+
+            return $this->redirectToRoute("configuracion");
+        }    
        
          return $this->render("perfil/configuracion.html.twig", 
          ["user" => $user, "formulario" => $formulario->createView(), "usu" => $usu]);

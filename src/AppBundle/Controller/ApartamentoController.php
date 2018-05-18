@@ -162,6 +162,8 @@ class ApartamentoController extends Controller
             $em->persist($comentario);
             $em->flush();
 
+            return $this->redirectToRoute('apartamento',['id' => $id]);
+
         }
 
             //LLamada a la vista
