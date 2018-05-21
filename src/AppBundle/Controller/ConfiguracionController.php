@@ -20,9 +20,11 @@ class ConfiguracionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $usuario = $em->getRepository("AppBundle\Entity\User");
 
+        //Recojo el username y la password del usuario logeado
         $usu = $this->getUser()->getUsername();
         $password = $this->getUser()->getPassword();
 
+        //Recojo la id del usuario logeado
         $id = $this->getUser()->getId();     
         $user = $usuario->find($id); 
 
@@ -30,17 +32,20 @@ class ConfiguracionController extends Controller
               
         $formulario->handleRequest($peticion);
 
+        //Condición que se ejecuta si se envía el formulario
         if($formulario->isSubmitted()) {
 
             $form = $formulario->getData();
 
             $contra = $formulario->getData()->getPassword();
 
+            //Condición que se ejecuta si no se ha modificado la password del usuario
             if($contra == $password) {
 
                 $em->persist($form);
                 $em->flush();
             }
+            //Se ejecuta si se ha modificado la password del usuario
             else {
 
                 $form->setPassword(password_hash($form->getPassword(), PASSWORD_BCRYPT));

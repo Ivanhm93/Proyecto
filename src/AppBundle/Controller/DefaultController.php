@@ -22,11 +22,13 @@ class DefaultController extends Controller
     public function indexAction(Request $peticion)
     {        
 
+        //Recojo todos los Apartamentos, Provincias y Localidades
         $em = $this->getDoctrine()->getManager();
         $propiedad = $em->getRepository("AppBundle\Entity\Apartamento")->findAll();
         $provincias = $em->getRepository("AppBundle\Entity\Provincia")->findAll();
         $localidades = $em->getRepository("AppBundle\Entity\Localidad")->findAll();
 
+        //Condición que se ejecuta si se ha recibido una petición POST del formulario
         if(count($peticion->request)  > 0) {
 
             $data = $peticion->request->all();
@@ -46,15 +48,18 @@ class DefaultController extends Controller
             $precio1 = $precios[0];
             $precio2= $precios[1];
 
+            //Consulta a la base de datos que consulta los apartamentos filtrados 
+            //por los diferentes campos del formulario recogido anteriormente
             $query = $em->createQuery(
                 "SELECT ap
                 FROM AppBundle:Apartamento ap
-                WHERE ap.localidad = $formLocalidad and ap.precio BETWEEN '$precio1' and '$precio2'
-                and ap.numPersonas = $formPersonas and ap.numHabitaciones = $formHabitaciones"
+                WHERE ap.localidad = $formLocalidad AND ap.precio BETWEEN '$precio1' AND '$precio2'
+                AND ap.numPersonas = $formPersonas AND ap.numHabitaciones = $formHabitaciones"
             );
             
             $propiedad = $query->getResult();
 
+            //Condición que se ejecuta si hay un usuario logeado
             if($this->getUser() != null) {
 
                 $usuario = $this->getUser()->getUsername();
@@ -62,6 +67,7 @@ class DefaultController extends Controller
                 return $this->render('default/home.html.twig',["usuario"=>$usuario, "propiedad" => $propiedad,
                 'provincia' => $provincias, 'localidad' => $localidades]);
             }
+            //Se ejecuta si no hay ningún usuario conectado
             else {
     
                 return $this->render('default/home.html.twig',["propiedad" => $propiedad, 
@@ -70,6 +76,7 @@ class DefaultController extends Controller
             
         }
 
+        //Condición que se ejecuta si hay un usuario logeado
         if($this->getUser() != null) {
 
             $usuario = $this->getUser()->getUsername();
@@ -77,6 +84,7 @@ class DefaultController extends Controller
             return $this->render('default/home.html.twig',["usuario"=>$usuario, "propiedad" => $propiedad,
             'provincia' => $provincias, 'localidad' => $localidades]);
         }
+        //Se ejecuta si no hay ningún usuario conectado
         else {
 
             return $this->render('default/home.html.twig',["propiedad" => $propiedad, 
@@ -91,6 +99,7 @@ class DefaultController extends Controller
      */
     public function localidadAction(Request $request, $prov) {
 
+        //Si se ha recibido la petición AJAX
         if($request->isXmlHttpRequest())
         {
             $encoders = array(new JsonEncoder(),new XmlEncoder());

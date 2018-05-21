@@ -23,27 +23,32 @@ class AlquilerController extends Controller
         $apartamento=new Apartamento();
         $formulario=$this->createForm('AppBundle\Form\ApartamentoType',$apartamento);
         $em = $this->getDoctrine()->getManager();
+
+        //Id del usuario logeado
         $id = $this->getUser()->getId();
+
+        //Recojo los Apartamentos y Alquileres que tenga en posesión el usuario logeado
         $propiedad = $em->getRepository("AppBundle\Entity\Apartamento")->findBy(array('user'=> $id));
         $alquilado = $em->getRepository("AppBundle\Entity\Alquiler")->findBy(array('user'=> $id));
 
         $formulario->handleRequest($peticion);
 
+        //Condición que se ejecuta si se envía el formulario
         if($formulario->isSubmitted()) {
 
-             // Recogemos el fichero
+             //Recogemos el fichero
              $foto=$formulario['imagen']->getData();
             
-             // Sacamos la extensión del fichero
+             //Sacamos la extensión del fichero
              $ext=$foto->guessExtension();
              
-             // Le ponemos un nombre al fichero
+             //Le ponemos un nombre al fichero
              $galeria_nombre=time().".".$ext;
              
-             // Guardamos el fichero en el directorio uploads que estará en el directorio /web del framework
+             //Guardamos el fichero en el directorio imagenes que estará en el directorio /web 
              $foto->move("imagenes", $galeria_nombre);
              
-             // Establecemos el nombre de fichero en el atributo de la entidad
+             //Establecemos el nombre de fichero en el atributo de la entidad
              $apartamento->setImagen($galeria_nombre);
 
             $apartamento=$formulario->getData();
@@ -68,10 +73,13 @@ class AlquilerController extends Controller
      */
     public function borrarAlquilerAction($id) {
 
+        //Dentro de $apartamento quedará la id que se ha seleccionado en la tabla
         $apartamento=$this->getDoctrine()->getRepository("AppBundle\Entity\Apartamento");
         $apartamento=$apartamento->findOneBy(array('id' => $id));
 
-        $query = $this->getDoctrine()->getManager()->createQuery('delete FROM AppBundle:Apartamento ap where ap.id =:id')
+        //Consulta a la base de datos que elimina el Apartamento cuya id se seleccionó antes
+        $query = $this->getDoctrine()->getManager()
+        ->createQuery('DELETE FROM AppBundle:Apartamento ap WHERE ap.id =:id')
                       ->setParameter('id', $id);;
         $result = $query->getResult();
         

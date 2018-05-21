@@ -30,18 +30,21 @@ class AutenticacionController extends Controller
 
             $formulario->handleRequest($peticion);
 
+            //Condición que se ejecuta si se envía el formulario y es válido
             if($formulario->isSubmitted() && $formulario->isValid())
             {
-
 
                 $em = $this->getDoctrine()->getManager();
                 $user_repo = $em->getRepository('AppBundle:User');
                 
-                $query = $em->createQuery('Select u From AppBundle:User u Where u.nick = :nick');
+                //Consulta a la base de datos que consulta si el username existe
+                $query = $em->createQuery('SELECT u FROM AppBundle:User u WHERE u.nick = :nick');
                 
                 $user_isset = $query->getResult();
 
                 $usuario=$formulario->getData();
+
+                //Encripta la contraseña introducida
                 $usuario->setPassword(password_hash($usuario->getPassword(), PASSWORD_BCRYPT));
                 $usuario->addRol($rol);
 
@@ -54,8 +57,7 @@ class AutenticacionController extends Controller
 
             //LLamada a la vista
             return $this->render(
-            "autenticacion/registro.html.twig",
-            ["formulario"=>$formulario->createView()]);
+            "autenticacion/registro.html.twig", ["formulario"=>$formulario->createView()]);
     }
 
 
@@ -66,16 +68,21 @@ class AutenticacionController extends Controller
      */
     public function nickAction(Request $peticion) {
 
+        //Recojo por GET el username
         $nick = $peticion->get("nick");
 			
         $em = $this->getDoctrine()->getManager();
+
+        //Buscar el username recogido por GET en la base de datos
         $user_repo = $em->getRepository("AppBundle:User");
         $user_isset = $user_repo->findOneBy(array ("username" => $nick));
         
+        //Condición que se ejecuta si se encuentra el username en la base de datos
         if(count($user_isset) >= 1 && is_object($user_isset)) {
             
             $result = "usado";
         }
+        //Se ejecuta si no encuentra el username en la base de datos
         else {
             
             $result = "sinusar";
@@ -91,7 +98,7 @@ class AutenticacionController extends Controller
      */
     public function loginAction(Request $request)
     {
-        //Creo el formulario
+        //Creo el formulario del login
         $formulario=$this->createFormBuilder()
         ->add("username",TextType::class, array(
             'label' => 'Usuario',
@@ -111,6 +118,7 @@ class AutenticacionController extends Controller
             'style' => 'margin-top:8%')))
         ->getForm();
 
+        //Utilizo herramientas de seguridad de las que dispone por defecto Symfony
        $autenticacionUtils=$this->get('security.authentication_utils');
        $error=$autenticacionUtils->getLastAuthenticationError();
        return $this->render("autenticacion/Login.html.twig",
