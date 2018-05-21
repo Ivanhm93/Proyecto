@@ -127,7 +127,7 @@ class ApartamentoController extends Controller
 
         //Condición que se ejecuta si se envía el formulario
         //Y crea un Alquiler para el Apartamento seleccionado
-        if($formulario4->isSubmitted())
+        if($formulario4->isSubmitted() && $formulario4->isValid())
         {
 
             $alquilado=$formulario4->getData();
@@ -137,6 +137,8 @@ class ApartamentoController extends Controller
             $em4->persist($alquilado);
             $em4->flush();
 
+            return $this->redirectToRoute('apartamento',['id' => $id]);
+
         }
 
         $formulario3=$this->createForm('AppBundle\Form\ApartamentoType',$apartamento);
@@ -144,7 +146,7 @@ class ApartamentoController extends Controller
 
         //Condición que se ejecuta si se envía el formulario
         //De modificación del apartamento
-        if($formulario3->isSubmitted())
+        if($formulario3->isSubmitted() && $formulario4->isValid())
         {
 
             $em2=$this->getDoctrine()->getManager();
@@ -171,7 +173,7 @@ class ApartamentoController extends Controller
 
         //Condición que se ejecuta si se envía el formulario
         //Recojo sus datos y creo con ellos un comentario para el apartamento
-        if($formulario->isSubmitted())
+        if($formulario->isSubmitted() && $formulario4->isValid())
         {
 
             $comentario=$formulario->getData();
@@ -219,7 +221,7 @@ class ApartamentoController extends Controller
         $formulario->handleRequest($peticion);
         
         //Condición que se ejecuta si se envía el formulario
-        if($formulario->isSubmitted())
+        if($formulario->isSubmitted() && $formulario4->isValid())
         {
 
             //Recogemos el fichero

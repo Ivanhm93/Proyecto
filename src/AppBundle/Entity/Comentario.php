@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comentario
@@ -22,6 +23,7 @@ class Comentario
     private $id;
 
     /**
+     * @Assert\NotBlank()
      * @var string
      *
      * @ORM\Column(name="Fecha", type="string", length=10, nullable=true)
@@ -29,6 +31,7 @@ class Comentario
     private $fecha;
 
     /**
+     * @Assert\NotBlank()
      * @var string
      *
      * @ORM\Column(name="Texto", type="string", length=255, nullable=true)
@@ -36,6 +39,7 @@ class Comentario
     private $texto;
 
     /**
+     * @Assert\NotBlank()
      * @var string
      *
      * @ORM\Column(name="Nombre", type="string", length=45, nullable=true)
@@ -43,6 +47,7 @@ class Comentario
     private $nombre;
 
     /**
+     * @Assert\NotBlank()
      * @var string
      *
      * @ORM\Column(name="Apellidos", type="string", length=45, nullable=true)
@@ -50,6 +55,7 @@ class Comentario
     private $apellidos;
 
     /**
+     * @Assert\NotBlank()
      * @var \Apartamento
      *
      * @ORM\ManyToOne(targetEntity="Apartamento")
@@ -60,6 +66,7 @@ class Comentario
     private $apartamento;
 
     /**
+     * @Assert\NotBlank()
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User")

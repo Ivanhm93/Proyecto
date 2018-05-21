@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Alquiler
@@ -22,6 +23,7 @@ class Alquiler
     private $id;
 
     /**
+     * @Assert\Date()
      * @var string
      *
      * @ORM\Column(name="Fecha_Ini", type="string", length=10, nullable=true)
@@ -29,6 +31,7 @@ class Alquiler
     private $fechaIni;
 
     /**
+     * @Assert\Date()
      * @var string
      *
      * @ORM\Column(name="Fecha_Fin", type="string", length=10, nullable=true)
@@ -36,6 +39,7 @@ class Alquiler
     private $fechaFin;
 
     /**
+     * @Assert\NotBlank()
      * @var string
      *
      * @ORM\Column(name="direccion", type="string", length=255, nullable=true)

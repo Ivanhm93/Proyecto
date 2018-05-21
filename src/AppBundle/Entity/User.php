@@ -27,6 +27,7 @@ class User implements UserInterface, Serializable
     private $id;
 
     /**
+     * @Assert\NotBlank()
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=45, nullable=false)
@@ -34,6 +35,7 @@ class User implements UserInterface, Serializable
     private $username;
 
     /**
+     * @Assert\NotBlank()
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255, nullable=false)
@@ -41,6 +43,7 @@ class User implements UserInterface, Serializable
     private $password;
 
     /**
+     * @Assert\NotBlank()
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
@@ -55,6 +58,7 @@ class User implements UserInterface, Serializable
     private $isactive;
 
     /**
+     * @Assert\NotBlank()
      * @var string
      *
      * @ORM\Column(name="Dni", type="string", length=9, nullable=false)
@@ -62,6 +66,7 @@ class User implements UserInterface, Serializable
     private $dni;
 
     /**
+     * @Assert\NotBlank()
      * @var string
      *
      * @ORM\Column(name="Nombre", type="string", length=45, nullable=true)
@@ -69,6 +74,7 @@ class User implements UserInterface, Serializable
     private $nombre;
 
     /**
+     * @Assert\NotBlank()
      * @var string
      *
      * @ORM\Column(name="Apellidos", type="string", length=100, nullable=true)
@@ -76,6 +82,7 @@ class User implements UserInterface, Serializable
     private $apellidos;
 
     /**
+     * @Assert\NotBlank()
      * @var integer
      *
      * @ORM\Column(name="Telefono", type="integer", nullable=true)

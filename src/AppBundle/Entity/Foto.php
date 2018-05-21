@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Foto
@@ -29,6 +30,7 @@ class Foto
     private $imagen;
 
     /**
+     * @Assert\NotBlank()
      * @var \Apartamento
      *
      * @ORM\ManyToOne(targetEntity="Apartamento")

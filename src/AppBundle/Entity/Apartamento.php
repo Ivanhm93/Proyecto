@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Apartamento
@@ -22,6 +23,7 @@ class Apartamento
     private $id;
 
     /**
+     * @Assert\NotBlank()
      * @var string
      *
      * @ORM\Column(name="Nombre", type="string", length=100, nullable=true)
@@ -29,6 +31,7 @@ class Apartamento
     private $nombre;
 
     /**
+     * @Assert\NotBlank()
      * @var integer
      *
      * @ORM\Column(name="Precio", type="integer", nullable=true)
@@ -36,6 +39,7 @@ class Apartamento
     private $precio;
 
     /**
+     * @Assert\NotBlank()
      * @var integer
      *
      * @ORM\Column(name="Num_Personas", type="integer", nullable=true)
@@ -43,6 +47,7 @@ class Apartamento
     private $numPersonas;
 
     /**
+     * @Assert\NotBlank()
      * @var integer
      *
      * @ORM\Column(name="Num_Habitaciones", type="integer", nullable=true)
@@ -50,6 +55,7 @@ class Apartamento
     private $numHabitaciones;
 
     /**
+     * @Assert\NotBlank()
      * @var string
      *
      * @ORM\Column(name="Direccion", type="string", length=255, nullable=true)
@@ -57,6 +63,7 @@ class Apartamento
     private $direccion;
 
     /**
+     * @Assert\NotBlank()
      * @var string
      *
      * @ORM\Column(name="Ubicacion", type="string", length=255, nullable=true)
@@ -71,6 +78,7 @@ class Apartamento
     private $imagen;
 
     /**
+     * @Assert\NotBlank()
      * @var string
      *
      * @ORM\Column(name="Descripcion", type="string", length=255, nullable=true)
@@ -78,6 +86,7 @@ class Apartamento
     private $descripcion;
 
     /**
+     * @Assert\NotBlank()
      * @var \Localidad
      *
      * @ORM\ManyToOne(targetEntity="Localidad")
@@ -88,6 +97,7 @@ class Apartamento
     private $localidad;
 
     /**
+     * @Assert\NotBlank()
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User")
