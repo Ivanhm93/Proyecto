@@ -30,7 +30,6 @@ class Foto
     private $imagen;
 
     /**
-     * @Assert\NotBlank()
      * @var \Apartamento
      *
      * @ORM\ManyToOne(targetEntity="Apartamento")

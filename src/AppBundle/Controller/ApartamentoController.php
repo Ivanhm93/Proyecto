@@ -48,7 +48,7 @@ class ApartamentoController extends Controller
         $formulario=$this->createForm('AppBundle\Form\ComentarioType',$comentario);
         $user = new User();
 
-        //Vuelvo a recoger en otra variable el usuario dueño del apartamento seleccionado
+        //Recojo el usuario logeado
         $loged = $this->getUser()->getId();
         $usuario=$this->getDoctrine()->getRepository("AppBundle\Entity\User");
         $usuario = $usuario->findOneBy(array('id' => $loged));
@@ -221,7 +221,7 @@ class ApartamentoController extends Controller
         $formulario->handleRequest($peticion);
         
         //Condición que se ejecuta si se envía el formulario
-        if($formulario->isSubmitted() && $formulario4->isValid())
+        if($formulario->isSubmitted() && $formulario->isValid())
         {
 
             //Recogemos el fichero

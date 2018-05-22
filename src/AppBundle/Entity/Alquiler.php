@@ -23,7 +23,6 @@ class Alquiler
     private $id;
 
     /**
-     * @Assert\Date()
      * @var string
      *
      * @ORM\Column(name="Fecha_Ini", type="string", length=10, nullable=true)
@@ -31,7 +30,6 @@ class Alquiler
     private $fechaIni;
 
     /**
-     * @Assert\Date()
      * @var string
      *
      * @ORM\Column(name="Fecha_Fin", type="string", length=10, nullable=true)

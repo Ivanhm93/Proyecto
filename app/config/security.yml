@@ -37,7 +37,9 @@ security:
                 path:   /logout
                 target: /home
     access_control:
-        - { path: /Apartamento/id, roles: ROLE_USER }
-        - { path: /Galeria/id, roles: ROLE_USER }
-        - { path: /Perfil, roles: ROLE_USER }
-        - { path: /Alquiler, roles: ROLE_USER }
+        - { path: ^/Apartamento, roles: ROLE_USER }
+        - { path: ^/Galeria/id, roles: ROLE_USER }
+        - { path: ^/Perfil, roles: ROLE_USER }
+        - { path: ^/Alquiler, roles: ROLE_USER }
+
+    access_denied_url: /Redireccion

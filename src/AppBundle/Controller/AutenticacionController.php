@@ -36,11 +36,6 @@ class AutenticacionController extends Controller
 
                 $em = $this->getDoctrine()->getManager();
                 $user_repo = $em->getRepository('AppBundle:User');
-                
-                //Consulta a la base de datos que consulta si el username existe
-                $query = $em->createQuery('SELECT u FROM AppBundle:User u WHERE u.nick = :nick');
-                
-                $user_isset = $query->getResult();
 
                 $usuario=$formulario->getData();
 
