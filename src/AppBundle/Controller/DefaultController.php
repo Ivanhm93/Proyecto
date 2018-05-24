@@ -14,8 +14,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-use Goutte\Client;
-
 class DefaultController extends Controller
 {
     /**
@@ -30,17 +28,6 @@ class DefaultController extends Controller
         $provincias = $em->getRepository("AppBundle\Entity\Provincia")->findAll();
         $localidades = $em->getRepository("AppBundle\Entity\Localidad")->findAll();
 
-        $client = new Client();
-        $crawler = $client->request('GET', 'https://www.milanuncios.com/alquiler-de-pisos-en-jaen-jaen/');
-        $crawler->filter('.aditem')->each(function ($node) {
-
-            print_r("<br/>");
-            print_r("<br/>");
-            print_r($node->html());
-            print_r("<br/>");
-            print_r("<br/>");
-        });
-  
         //Condición que se ejecuta si se ha recibido una petición POST del formulario
         if(count($peticion->request)  > 0) {
 
