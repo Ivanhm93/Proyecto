@@ -1,78 +1,9 @@
-<!DOCTYPE html>
-<html>
+{% extends 'default/base.html.twig' %}
 
-<head>
+{% block cuerpo %}
 
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<link rel="stylesheet" href="{{ asset('css/estilo.css') }}" />
-
-</head>
-        
 <body style="background-color: #eee;">
 
-	<!-- Menú Navbar -->
-	{% if usuario is defined %} 
-
-		<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #00aced;">
-			<div class="container">
-				<img id="logo" src="../imagenes/logo.png">
-				<button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#divCollapse">
-					&#9776;
-				</button>
-				<div class="collapse navbar-collapse" id="divCollapse">
-					<ul class="nav navbar-nav">
-						<li class="nav-item"><a href="{{ url('crawler') }}" class="nav-link font-weight-bold fas fa-question-circle"> Otras Web</a></li>
-					</ul>
-					<ul class="nav navbar-nav ml-auto">
-						<button type="button" data-toggle="dropdown" style="background-color:#00aced;" class="btn dropdown-toggle nav-link font-weight-bold fas fa-user"> {{ app.user.username }}</button>
-						<ul class="dropdown-menu dropdown-menu-right mr-5" style="background-color:#c0deed;">
-							<li class="px-3 py-2">
-								<div class="form-group" style="border-bottom: 0.2px solid; border-color: #00aced;">
-									<a href="{{url("alquiler")}}" class="nav-link font-weight-bold fas fa-building"> Apartamentos</a>
-								</div>
-								<div class="form-group" style="border-bottom: 0.2px solid; border-color: #00aced;">
-									<a href="{{url("configuracion")}}" class="nav-link font-weight-bold fas fa-cog"> Configuración</a>
-								</div>
-								<div class="form-group" style="border-bottom: 0.2px solid; border-color: #00aced;">
-									<a href="{{url("logout")}}" class="nav-link font-weight-bold fas fa-sign-out-alt"> Cerrar Sesión</a>
-								</div>
-							</li>
-						</ul>
-					</ul>
-				</div>
-			</div>
-		</nav>
-			
-		{% else %}
-
-		<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #00aced;">
-			<div class="container">
-				<img id="logo" src="../imagenes/logo.png">
-				<button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#divCollapse">
-					&#9776;
-				</button>
-				<div class="collapse navbar-collapse" id="divCollapse">
-					<ul class="nav navbar-nav">
-						<li class="nav-item"><a href="{{ url('crawler') }}" class="nav-link font-weight-bold fas fa-question-circle"> Otras Web</a></li>
-					</ul>
-					<ul class="nav navbar-nav flex-row justify-content-between ml-auto">
-						<li class="dropdown order-1">
-							<li class="nav-item"><a href="{{ url('registro') }}" class="nav-link font-weight-bold fas fa-sign-out-alt"> Registrate</a></li>
-							<li class="nav-item"><a href="{{ url('login') }}" class="nav-link font-weight-bold fas fa-sign-in-alt"> Inicia Sesión</a></li>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>		
-
-	{% endif %}
-	<!-- /Menú Navbar --> 
-		
 	<!-- Cuerpo -->
 	<div class="container" id="cuerpo">
 		<div class="row" style="height: 100%;">
@@ -196,6 +127,10 @@
 			
 </body>
 
+{% endblock %}
+
+{% block javascript %}
+
 	<!-- JavaScript -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -205,54 +140,4 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<!-- /JavaScript -->
 
-<!-- Footer -->
-<footer class="page-footer font-small stylish-color-dark pt-4 mt-4">
-  	<div class="container text-center text-md-left">
-	  	<div class="row text-center text-md-left mt-3 pb-3">
-
-		 	<!-- Descripcion -->
-		  	<div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-			  	<h6 class="text-uppercase mb-4 font-weight-bold">Descripcion</h6>
-			  	<p>Página Inicial del proyecto sobre web comparadora de apartamentos</p>
-		  	</div>
-		  	<!-- /Descripcion -->
-
-		  	<hr class="w-100 clearfix d-md-none">
-
-		  	<!-- Enlaces -->
-		  	<div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
-			  	<h6 class="text-uppercase mb-4 font-weight-bold">Enlaces</h6>
-			  	<p><a href="#!">Memoria del Proyecto</a></p>
-			  	<p><a href="#!">Manual de Instalación</a></p>
-			  	<p><a href="#!">Manual de Usuario</a></p>
-		  	</div>
-		  	<!-- /Second column -->
-
-		  	<hr class="w-100 clearfix d-md-none">
-
-		  	<!-- Datos -->
-		  	<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
-				<h6 class="text-uppercase mb-4 font-weight-bold">Contacto</h6>
-				<p><i class="fas fa-home mr-3"></i>Av. Arjona, 5, 23006 Jaén</p>
-				<p><i class="fab fa-internet-explorer mr-3"></i>www.ieslasfuentezuelas.com/</p>
-				<p><i class="fas fa-phone mr-3"></i>953 36 69 05</p>
-			</div>
-		  	<!-- /Datos -->
-
-	  	</div>
-
-		 <hr>
-		 
-		<!-- CopyRight -->
-	  	<div class="row py-3 d-flex align-items-center">
-		 	<div class="col-md-8 col-lg-8">
-			  	<p class="text-center text-md-left grey-text">© 2018 Copyright</p>
-		  	</div>
-		</div>
-		<!-- /CopyRight -->
-
-	</div>
-</footer>
-<!-- /Footer -->							
-
-</html>
+{% endblock %}
