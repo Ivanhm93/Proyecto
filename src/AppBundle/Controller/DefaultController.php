@@ -51,10 +51,12 @@ class DefaultController extends Controller
             //Consulta a la base de datos que consulta los apartamentos filtrados 
             //por los diferentes campos del formulario recogido anteriormente
             $query = $em->createQuery(
+                //FALTAN LOS SET PARAMETER
                 "SELECT ap
-                FROM AppBundle:Apartamento ap
+                FROM AppBundle:Alquiler al JOIN AppBundle:Apartamento ap
                 WHERE ap.localidad = $formLocalidad AND ap.precio BETWEEN '$precio1' AND '$precio2'
-                AND ap.numPersonas = $formPersonas AND ap.numHabitaciones = $formHabitaciones"
+                AND ap.numPersonas = $formPersonas AND ap.numHabitaciones = $formHabitaciones AND
+                al.fechaIni > $formHasta AND al.fechaFin < $formDesde"
             );
             
             $propiedad = $query->getResult();
