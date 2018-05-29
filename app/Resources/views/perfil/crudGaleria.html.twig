@@ -23,10 +23,9 @@
 				&#9776;
 			</button>
 			<div class="collapse navbar-collapse" id="divCollapse">
-					<ul class="nav navbar-nav">
-							<li class="nav-item"><a href="{{ url('homepage')}}" id="inicio" class="nav-link font-weight-bold">Inicio</a></li>
-							<li class="nav-item"><a href="#" id="ayuda" class="nav-link font-weight-bold">Ayuda</a></li>
-						</ul>
+				<ul class="nav navbar-nav">
+					<li class="nav-item"><a href="{{ url('homepage')}}" id="inicio" class="nav-link font-weight-bold fas fa-home"> Inicio</a></li>
+				</ul>
 					<ul class="nav navbar-nav ml-auto">
 						<button type="button" data-toggle="dropdown" style="background-color:#00aced;" class="btn dropdown-toggle nav-link font-weight-bold fas fa-user"> {{ app.user.username }}</button>
 						<ul class="dropdown-menu dropdown-menu-right mr-5" style="background-color:#c0deed;">
@@ -49,7 +48,7 @@
 	<!-- /Menú Navbar --> 
 
 	<!-- Cuerpo -->
-	<input style="margin-left: 2%;" class="btn btn-secondary" type="submit" value="Volver Atrás" id="prueba" onclick="history.back()"/>
+	<input style="margin-left: 2%;" class="btn btn-secondary" type="submit" value="Volver Atrás" onclick="window.location.replace('../../Apartamento/{{apar.id}}');"/>
 	<div class="card m-4 p-4">
 		<div class="row">
 			<div class="col-lg-8">
@@ -79,10 +78,10 @@
 				</table>
 			</div>
 			<div class="col-lg-3">
-						<h5 style="padding: 5%;">Subir Imágenes:</h5>
-						{{ form_start(formulario, {'enctype':"multipart/form-data"})}}					
-						{{ form_widget(formulario) }}
-						{{ form_end(formulario) }}
+				<h5 style="padding: 5%;">Subir Imágenes:</h5>
+				{{ form_start(formulario, {'enctype':"multipart/form-data"})}}					
+				{{ form_widget(formulario) }}
+				{{ form_end(formulario) }}
 			</div>
 		</div>
 	</div>

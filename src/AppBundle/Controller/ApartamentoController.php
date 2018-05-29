@@ -55,7 +55,7 @@ class ApartamentoController extends Controller
 
         //Recojo nombre y apellidos del usuario dueño del apartamento
         $nombre = $this->getUser()->getNombre();
-        $apellido = $this->getUser()->getNombre(); 
+        $apellido = $this->getUser()->getApellidos(); 
 
         $galeria=new Foto();
         $formulario2=$this->createForm('AppBundle\Form\FotoType',$galeria);
@@ -173,7 +173,7 @@ class ApartamentoController extends Controller
 
         //Condición que se ejecuta si se envía el formulario
         //Recojo sus datos y creo con ellos un comentario para el apartamento
-        if($formulario->isSubmitted() && $formulario4->isValid())
+        if($formulario->isSubmitted() && $formulario->isValid())
         {
 
             $comentario=$formulario->getData();

@@ -108,6 +108,12 @@
 										<h6 style="text-align: right;">Nº Habitaciones:{{ apar.numHabitaciones }}</h6>
 										<hr/>
 										<p class="card-text">{{ apar.descripcion }}</p>
+
+										{% if app.user %}
+											{% if app.user.id == apar.user.id %}
+												<p class="text-success" class="card-text">EN PROPIEDAD</p>
+											{% endif %}
+										{% endif %}
 									</div>
 									<div class="card-footer">
 										<small class="text-muted">{{ apar.direccion }}, {{ apar.localidad.nombre }}</small>

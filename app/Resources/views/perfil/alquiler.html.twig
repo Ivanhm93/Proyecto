@@ -14,7 +14,6 @@
 			<div class="collapse navbar-collapse" id="divCollapse">
 					<ul class="nav navbar-nav">
 							<li class="nav-item"><a href="{{ url('homepage')}}" id="inicio" class="nav-link font-weight-bold fas fa-home"> Inicio</a></li>
-							<li class="nav-item"><a href="#" id="ayuda" class="nav-link font-weight-bold fas fa-question-circle"> Ayuda</a></li>
 						</ul>
 					<ul class="nav navbar-nav ml-auto">
 						<button type="button" data-toggle="dropdown" style="background-color:#00aced;" class="btn dropdown-toggle nav-link font-weight-bold fas fa-user"> {{ app.user.username }}</button>
@@ -55,8 +54,8 @@
                     {% for apar in propiedad %}
 
                         <ul style="padding: 2%;">
-                           {{ apar.id }} - {{ apar }}
-                           <a href="{{url("borrarAlquiler",{"id":apar.id, "id":apar.id})}}">Eliminar</a>
+                           <a style="text-decoration: none;" href="{{url("apartamento",{"id":apar.id})}}">{{ apar }}</a>
+                           <a style="text-decoration: none;" href="{{url("borrarAlquiler",{"id":apar.id})}}"><span class="text-danger">Eliminar</span></a>
                         </ul>
                         
                     <hr/>
