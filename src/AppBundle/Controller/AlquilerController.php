@@ -34,7 +34,7 @@ class AlquilerController extends Controller
         $formulario->handleRequest($peticion);
 
         //Condición que se ejecuta si se envía el formulario
-        if($formulario->isSubmitted()) {
+        if($formulario->isSubmitted() && $formulario->isValid()) {
 
              //Recogemos el fichero
              $foto=$formulario['imagen']->getData();

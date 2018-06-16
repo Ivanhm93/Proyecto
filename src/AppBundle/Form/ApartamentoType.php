@@ -58,7 +58,7 @@ class ApartamentoType extends AbstractType
             'style' => 'margin-bottom:5%; max-height: 200px;'
         )))
     ->add('imagen', FileType::Class, array(
-        'required' => false,
+        'required' => true,
         'data_class' => null,
 		'attr' => array(
             'class' => 'form-control',

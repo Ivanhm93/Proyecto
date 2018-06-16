@@ -9,7 +9,7 @@
 		<div class="row" style="height: 100%;">
 
 			<!-- Filtros -->
-			<div class="col-lg-3 card p-4 mt-4" style="margin-bottom: 2%;">
+			<div class="col-lg-3 card p-4 mt-4" style="margin-bottom: 2%; max-height: 650px;">
 				<form class="form" id="filtroForm" name="filtroForm" action="{{ path('homepage') }}" method="post" title="Elige una provincia">
 					<fieldset border="1px">
 						<h1 class="my-4">Filtros de Búsqueda</h1>
@@ -69,7 +69,7 @@
 			<!-- /Filtros -->
 
 			<div class="col-lg-9"  style="margin: 2% auto">
-				<h1 style="text-align: center">Apartamentos Destacados</h1>
+				<h1 id="destacados" style="text-align: center">Apartamentos Destacados</h1>
 
 				<hr/>
 
@@ -128,6 +128,9 @@
 					
 			</div>
 		</div>
+
+		<a style="opacity: 0.3; margin-left: 55%;" href="#destacados" class="nav-link font-weight-bold fas fa-level-up-alt"> Subir Arriba</a>
+
 	</div>
 	<!-- /Cuerpo -->
 			

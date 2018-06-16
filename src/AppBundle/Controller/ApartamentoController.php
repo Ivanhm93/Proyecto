@@ -146,7 +146,7 @@ class ApartamentoController extends Controller
 
         //Condición que se ejecuta si se envía el formulario
         //De modificación del apartamento
-        if($formulario3->isSubmitted() && $formulario4->isValid())
+        if($formulario3->isSubmitted() && $formulario3->isValid())
         {
 
             $em2=$this->getDoctrine()->getManager();
@@ -162,9 +162,30 @@ class ApartamentoController extends Controller
             }
             //Se ejecuta si se ha seleccionado una nueva imagen para el apartamento
             else {
- 
+
                 $em2->persist($update);
                 $em2->flush();
+ 
+                //Recogemos el fichero
+                $foto=$update->getImagen();
+                
+                //Sacamos la extensión del fichero
+                $ext=$foto->guessExtension();
+                
+                //Le ponemos un nombre al fichero
+                $galeria_nombre=time()."."."jpeg";
+                
+                //Guardamos el fichero en el directorio imagenes que estará en el directorio /web
+                $foto->move("imagenes", $galeria_nombre);
+                
+                //Establecemos el nombre de fichero en el atributo de la entidad
+                $update->setImagen($galeria_nombre);
+
+                $em2->persist($update);
+                $em2->flush();
+
+                return $this->redirectToRoute('apartamento',['id' => $id]);
+
             }
 
         }

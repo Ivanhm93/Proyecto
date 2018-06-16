@@ -22,9 +22,10 @@ class DefaultController extends Controller
     public function indexAction(Request $peticion)
     {        
 
-        //Recojo todos los Apartamentos, Provincias y Localidades
+        //Recojo todos los Apartamentos del usuario Admin, Provincias y Localidades
         $em = $this->getDoctrine()->getManager();
-        $propiedad = $em->getRepository("AppBundle\Entity\Apartamento")->findAll();
+        $user = $em->getRepository("AppBundle\Entity\User")->findOneBy(array('username' => 'Admin'));
+        $propiedad =  $em->getRepository('AppBundle\Entity\Apartamento')->findBy(array('user' => $user));
         $provincias = $em->getRepository("AppBundle\Entity\Provincia")->findAll();
         $localidades = $em->getRepository("AppBundle\Entity\Localidad")->findAll();
 

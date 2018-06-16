@@ -78,7 +78,6 @@ class Apartamento
     private $imagen;
 
     /**
-     * @Assert\NotBlank()
      * @var string
      *
      * @ORM\Column(name="Descripcion", type="string", length=255, nullable=true)
@@ -86,7 +85,6 @@ class Apartamento
     private $descripcion;
 
     /**
-     * @Assert\NotBlank()
      * @var \Localidad
      *
      * @ORM\ManyToOne(targetEntity="Localidad")
@@ -97,7 +95,6 @@ class Apartamento
     private $localidad;
 
     /**
-     * @Assert\NotBlank()
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User")
