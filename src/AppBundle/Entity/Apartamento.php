@@ -87,6 +87,7 @@ class Apartamento
     /**
      * @var \Localidad
      *
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Localidad")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="Localidad_id", referencedColumnName="id")
